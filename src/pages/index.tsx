@@ -51,7 +51,7 @@ const Home: NextPage = () => {
             </p>
             <AuthShowcase />
           </div>
-          <CreateTodoForm />
+          {/* <CreateTodoForm /> */}
         </div>
       </main>
     </>
@@ -85,24 +85,24 @@ const AuthShowcase: React.FC = () => {
 };
 
 // create a form to use a mutation
-const CreateTodoForm: React.FC = () => {
-  const [text, setText] = useState("");
-  const { mutate } = api.example.test.useMutation();
+// const CreateTodoForm: React.FC = () => {
+//   const [text, setText] = useState("");
+//   const { mutate } = api.example.test.useMutation();
 
-  return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        await mutate({ text });
-        setText("");
-      }}
-    >
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-      />
-      <button type="submit">Create</button>
-    </form>
-  );
-};
+//   return (
+//     <form
+//       onSubmit={async (e) => {
+//         e.preventDefault();
+//         await mutate({ text });
+//         setText("");
+//       }}
+//     >
+//       <input
+//         value={text}
+//         onChange={(e) => setText(e.target.value)}
+//         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+//       />
+//       <button type="submit">Create</button>
+//     </form>
+//   );
+// };
