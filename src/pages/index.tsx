@@ -49,7 +49,9 @@ const Home: NextPage = () => {
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
               {getAll.data
-                ? getAll.data.map((todo) => <div>{todo.name}</div>)
+                ? getAll.data.map((todo) => (
+                    <div key={todo.id}>{todo.name}</div>
+                  ))
                 : "Loading tRPC query..."}
               {hello.data ? hello.data.greeting : "Loading tRPC query..."}
             </p>
