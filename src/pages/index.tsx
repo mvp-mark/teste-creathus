@@ -8,6 +8,7 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const getAll = api.example.getAll.useQuery();
 
   return (
     <>
@@ -47,6 +48,9 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
+              {getAll.data
+                ? getAll.data.map((todo) => <div>{todo.name}</div>)
+                : "Loading tRPC query..."}
               {hello.data ? hello.data.greeting : "Loading tRPC query..."}
             </p>
             <AuthShowcase />
