@@ -25,6 +25,8 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     GITHUB_ID: z.string(),
     GITHUB_SECRET: z.string(),
+    TMDB_KEY: z.string(),
+    TMDB_JWT: z.string(),
   },
 
   /**
@@ -49,5 +51,7 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
+    TMDB_KEY: process.env.TMDB_KEY,
+    TMDB_JWT: process.env.TMDB_JWT,
   },
 });
