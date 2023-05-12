@@ -49,24 +49,31 @@ const Home: NextPage = () => {
               </Link>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <p className="text-2xl text-white">
+              <div className="flex flex-row">
                 {getAll.data
                   ? getAll.data.map((todo) => (
                       <>
                         {todo.image && (
-                          <Image
-                            src={todo.image}
-                            width={50}
-                            key={todo.id}
-                            height={50}
-                            className="rounded-full"
-                            alt="Avatar image"
-                          />
+                          <div className="flex flex-col items-center gap-4">
+                            <Image
+                              src={todo.image}
+                              width={50}
+                              key={todo.id}
+                              height={50}
+                              className="rounded-full"
+                              alt="Avatar image"
+                            />
+                            <p className="m-3 text-2xl text-white">
+                              <div key={todo.id}>{todo.name}</div>
+                            </p>
+                          </div>
                         )}
-                        <div key={todo.id}>{todo.name}</div>
                       </>
                     ))
                   : "Loading tRPC query..."}
+              </div>
+
+              <p className="text-2xl text-white">
                 {hello.data ? hello.data.greeting : "Loading tRPC query..."}
               </p>
               <AuthShowcase />
