@@ -4,6 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "utils/api";
+import { useState } from "react";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -50,6 +51,7 @@ const Home: NextPage = () => {
             </p>
             <AuthShowcase />
           </div>
+          <CreateTodoForm />
         </div>
       </main>
     </>
@@ -63,7 +65,7 @@ const AuthShowcase: React.FC = () => {
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (
@@ -79,5 +81,28 @@ const AuthShowcase: React.FC = () => {
         {sessionData ? "Sign out" : "Sign in"}
       </button>
     </div>
+  );
+};
+
+// create a form to use a mutation
+const CreateTodoForm: React.FC = () => {
+  const [text, setText] = useState("");
+  const { mutate } = api.example.test.useMutation();
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await mutate({ text });
+        setText("");
+      }}
+    >
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+      />
+      <button type="submit">Create</button>
+    </form>
   );
 };
