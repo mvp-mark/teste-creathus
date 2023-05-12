@@ -78,7 +78,6 @@ const Home: NextPage = () => {
               </p>
               <AuthShowcase />
             </div>
-            {/* <CreateTodoForm /> */}
           </div>
         </main>
       </Drawer>
