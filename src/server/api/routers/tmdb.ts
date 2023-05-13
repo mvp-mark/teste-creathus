@@ -1,8 +1,34 @@
 import { z } from "zod";
 
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+interface NowPlayingResponse {
+  dates?: {
+    maximum: Date;
+    minimum: Date;
+  };
+  page: number;
+  results: Movie[];
+}
+
 import {
   createTRPCRouter,
-  protectedProcedure,
+  // protectedProcedure,
   publicProcedure,
 } from "server/api/trpc";
 import axios from "axios";
@@ -21,8 +47,8 @@ export const tmdbRouter = createTRPCRouter({
         },
       }
     );
-    const data = await response.data.results;
-    return data;
+    const data = (await response.data) as NowPlayingResponse;
+    return data.results;
   }),
 
   search: publicProcedure
@@ -40,7 +66,7 @@ export const tmdbRouter = createTRPCRouter({
           },
         }
       );
-      const data = await response.data.results;
-      return data;
+      const data = (await response.data) as NowPlayingResponse;
+      return data.results;
     }),
 });

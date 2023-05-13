@@ -7,6 +7,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "utils/api";
 import { Drawer } from "components/drawer";
 import { useState } from "react";
+import { Movie } from "server/api/routers/tmdb";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -14,6 +15,10 @@ const Home: NextPage = () => {
   const playingNow = api.tmdb.now_playing.useQuery();
   const [text, setText] = useState("pokemon");
   const data = api.tmdb.search.useQuery({ search: text });
+
+  // const test = (params: string) => {
+  //   setText(params);
+  // };
 
   console.log({ data });
 
@@ -80,7 +85,7 @@ const Home: NextPage = () => {
               </div>
               <div className="flex flex-row">
                 {playingNow.data
-                  ? playingNow.data.map((todo: any) => (
+                  ? playingNow.data.map((todo: Movie) => (
                       <>
                         {
                           <div className="flex flex-col items-center gap-4">
