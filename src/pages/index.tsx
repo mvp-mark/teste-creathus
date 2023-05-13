@@ -6,11 +6,16 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "utils/api";
 import { Drawer } from "components/drawer";
+import { useState } from "react";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const getAll = api.example.getAll.useQuery();
   const playingNow = api.tmdb.now_playing.useQuery();
+  const [text, setText] = useState("pokemon");
+  const data = api.tmdb.search.useQuery({ search: text });
+
+  console.log({ data });
 
   return (
     <>
@@ -96,6 +101,7 @@ const Home: NextPage = () => {
               </p>
               <AuthShowcase />
             </div>
+            <div className="flex flex-col items-center gap-2"></div>
           </div>
         </main>
       </Drawer>
@@ -131,8 +137,6 @@ const AuthShowcase: React.FC = () => {
 
 // create a form to use a mutation
 // const CreateTodoForm: React.FC = () => {
-//   const [text, setText] = useState("");
-//   const { mutate } = api.example.test.useMutation();
 
 //   return (
 //     <form

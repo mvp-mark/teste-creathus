@@ -24,4 +24,23 @@ export const tmdbRouter = createTRPCRouter({
     const data = await response.data.results;
     return data;
   }),
+
+  search: publicProcedure
+    .input(z.object({ search: z.string() }))
+    .query(async ({ input }) => {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/search/movie",
+        {
+          params: {
+            api_key: env.TMDB_KEY,
+            language: "pt-BR",
+            query: input.search,
+            page: 1,
+            region: "br",
+          },
+        }
+      );
+      const data = await response.data.results;
+      return data;
+    }),
 });
