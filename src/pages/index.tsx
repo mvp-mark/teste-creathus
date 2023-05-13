@@ -77,13 +77,15 @@ const Home: NextPage = () => {
                 {playingNow.data
                   ? playingNow.data.map((todo: any) => (
                       <>
-                        {todo.image && (
+                        {
                           <div className="flex flex-col items-center gap-4">
                             <p className="m-3 text-2xl text-white">
-                              <div key={todo.id}>{todo.original_title}</div>
+                              <div key={todo.id}>
+                                {todo.title ?? todo.original_title}
+                              </div>
                             </p>
                           </div>
-                        )}
+                        }
                       </>
                     ))
                   : "Loading tRPC query..."}

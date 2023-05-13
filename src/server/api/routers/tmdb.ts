@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from "server/api/trpc";
 import axios from "axios";
-import { env } from "process";
+import { env } from "env.mjs";
 
 export const tmdbRouter = createTRPCRouter({
   now_playing: publicProcedure.query(async () => {
@@ -14,14 +14,14 @@ export const tmdbRouter = createTRPCRouter({
       "https://api.themoviedb.org/3/movie/now_playing",
       {
         params: {
-          api_key: env.TMDB_API_KEY,
+          api_key: env.TMDB_KEY,
           language: "pt-BR",
           page: 1,
           region: "br",
         },
       }
     );
-    const data = await response.data();
+    const data = await response.data.results;
     return data;
   }),
 });
