@@ -1,25 +1,14 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
-
 import { api } from "utils/api";
-import { Drawer } from "components/drawer";
 import { useState } from "react";
 import { Movie } from "server/api/routers/tmdb";
-import { Stars } from "components/stars";
 import { MoviesBoxArts } from "components/movieBoxArts";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const getAll = api.example.getAll.useQuery();
   const playingNow = api.tmdb.now_playing.useQuery();
   const [text, setText] = useState("pokemon");
   const data = api.tmdb.search.useQuery({ search: text });
-
-  console.log({ data });
-
   return (
     <>
       <Head>

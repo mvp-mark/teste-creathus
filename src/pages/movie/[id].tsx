@@ -1,13 +1,6 @@
 import { Stars } from "components/stars";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { Movie } from "server/api/routers/tmdb";
 import { api } from "utils/api";
-
-interface MovieProps {
-  data?: Movie | null;
-}
 
 export default function MoviePage() {
   const router = useRouter();
@@ -36,7 +29,10 @@ export default function MoviePage() {
               </h1>
               <h1 className="px-2">
                 {movieData.data.genres?.map((genre) => (
-                  <div className="center relative m-1 inline-block select-none whitespace-nowrap rounded-lg bg-pink-500 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white">
+                  <div
+                    key={genre.id}
+                    className="center relative m-1 inline-block select-none whitespace-nowrap rounded-lg bg-pink-500 px-3.5 py-2 align-baseline font-sans text-xs font-bold uppercase leading-none text-white"
+                  >
                     {genre.name}
                   </div>
                 ))}
