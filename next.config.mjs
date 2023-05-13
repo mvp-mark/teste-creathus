@@ -15,6 +15,10 @@ const config = {
         port: "",
         pathname: "/avatars/**",
       },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
     ],
   },
 
