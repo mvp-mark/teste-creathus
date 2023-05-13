@@ -10,6 +10,7 @@ import { Drawer } from "components/drawer";
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const getAll = api.example.getAll.useQuery();
+  const playingNow = api.tmdb.now_playing.useQuery();
 
   return (
     <>
@@ -65,6 +66,21 @@ const Home: NextPage = () => {
                             />
                             <p className="m-3 text-2xl text-white">
                               <div key={todo.id}>{todo.name}</div>
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ))
+                  : "Loading tRPC query..."}
+              </div>
+              <div className="flex flex-row">
+                {playingNow.data
+                  ? playingNow.data.map((todo: any) => (
+                      <>
+                        {todo.image && (
+                          <div className="flex flex-col items-center gap-4">
+                            <p className="m-3 text-2xl text-white">
+                              <div key={todo.id}>{todo.original_title}</div>
                             </p>
                           </div>
                         )}
