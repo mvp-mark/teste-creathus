@@ -2,6 +2,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import SearchBar from "./search";
 
 type DrawerProps = {
   children: React.ReactNode;
@@ -39,6 +40,7 @@ export const Drawer = (props: DrawerProps) => {
       <div className=" h-screen w-1/12 flex-grow bg-gray-100" />
       <div className="h-screen w-11/12 flex-grow bg-gray-100">
         <main className="flex min-h-screen flex-col  bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+          <SearchBar />
           {props.children}
         </main>
       </div>

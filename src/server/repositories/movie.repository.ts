@@ -1,6 +1,7 @@
 import { prisma } from "server/db";
 import { Movie } from "../entities/movie.entity";
 
+//@repository()
 export const movieRepository = {
   async createMovie(movie: Movie) {
     return await prisma.movie.create({

@@ -1,4 +1,5 @@
 import { Stars } from "components/stars";
+import ErrorHandler from "error-handler";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { api } from "utils/api";
@@ -64,6 +65,7 @@ export default function MoviePage() {
       <div className="flex items-center gap-2 text-gray-500">
         <span className="block h-16 w-16 animate-spin rounded-full border-4 border-t-blue-300"></span>
         Carregando...
+        <ErrorHandler error={movieData?.error?.data} />
       </div>
     </div>
   );

@@ -60,3 +60,21 @@ const mapMovie = (movie: Movie): MovieTmdb => {
 const mapMovies = (movies: Movie[]): MovieTmdb[] => {
   return movies.map(mapMovie);
 };
+
+export const convertMovieApiToEntity = (movie: MovieTmdb): Movie => {
+  return new Movie({
+    title: movie.title,
+    overview: movie.overview,
+    releaseDate: new Date(movie.release_date),
+    adult: movie.adult,
+    popularity: movie.popularity,
+    video: movie.video,
+    movieId: movie.id,
+    voteAverage: movie.vote_average,
+    voteCount: movie.vote_count,
+    originalTitle: movie.original_title,
+    backdrop: movie.backdrop_path,
+    poster: movie.poster_path,
+    originalLanguage: movie.original_language,
+  });
+};

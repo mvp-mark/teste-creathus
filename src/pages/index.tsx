@@ -4,6 +4,7 @@ import { api } from "utils/api";
 import { useState } from "react";
 import { Movie } from "server/api/routers/tmdb";
 import { MoviesBoxArts } from "components/movieBoxArts";
+import ErrorHandler from "error-handler";
 
 const Home: NextPage = () => {
   const playingNow = api.tmdb.now_playing.useQuery();
@@ -29,12 +30,22 @@ const Home: NextPage = () => {
         </h2>
 
         <div className="mt-4 grid grid-cols-7 gap-4">
-          {playingNow.data
-            ? playingNow.data.map((todo: Movie) => MoviesBoxArts(todo))
-            : "Loading tRPC query..."}
-          {data.data
-            ? data.data.map((todo: Movie) => MoviesBoxArts(todo))
-            : "Loading tRPC query..."}
+          {playingNow.data ? (
+            <>
+              {playingNow.data.map((todo: Movie) => MoviesBoxArts(todo))}
+              <ErrorHandler error={playingNow.error?.data} />
+            </>
+          ) : (
+            "Loading tRPC query..."
+          )}
+          {data.data ? (
+            <>
+              {data.data.map((todo: Movie) => MoviesBoxArts(todo))}
+              <ErrorHandler error={data.error?.data} />
+            </>
+          ) : (
+            "Loading tRPC query..."
+          )}
         </div>
       </div>
     </>
