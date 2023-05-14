@@ -1,19 +1,30 @@
-import { Stars } from "components/stars";
+import { Stars } from "components/stars.component";
 import ErrorHandler from "error-handler";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { api } from "utils/api";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-export default function MoviePage() {
+// const { data: sessionData } = useSession();
+export default function MoviePage(user) {
   const router = useRouter();
   const { id } = router.query;
+  const { mutate } = api.tmdb.saveLike.useMutation();
 
   const movieData =
     typeof id === "string" ? api.tmdb.findMovie.useQuery({ id }) : null;
 
-  console.log(typeof movieData);
-
   if (movieData?.data != null) {
+    const saveMovie = async () => {
+      try {
+        mutate({
+          movieId: movieData.data.id,
+          userId: user.user,
+        });
+        enqueueSnackbar("Filme Curtido com sucesso!", { variant: "success" });
+      } catch (error) {}
+    };
     const imageUrl =
       "https://image.tmdb.org/t/p/original/" + movieData.data.backdrop_path;
 
@@ -28,10 +39,10 @@ export default function MoviePage() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className=" inset-0 bg-black bg-opacity-0 transition-opacity duration-300 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-white opacity-0 transition-opacity duration-300 hover:opacity-100 sm:text-[5rem]"></h1>
+          <h1 className="text-5xl font-extrabold tracking-tight text-white opacity-0 transition-opacity duration-300 hover:opacity-100"></h1>
           <div className="my-40 flex flex-col items-center gap-2">
             <>
-              <h1 className="text text-7xl font-extrabold tracking-tight text-orange-500 opacity-100 transition-opacity duration-300 hover:opacity-90 sm:text-[5rem]">
+              <h1 className=" text p-16 text-7xl font-extrabold tracking-tight text-orange-500 opacity-100 transition-opacity duration-300 hover:opacity-90">
                 {movieData.data.title}
               </h1>
               <h1 className="px-2">
@@ -45,16 +56,20 @@ export default function MoviePage() {
                 ))}
               </h1>
               <Stars rating={movieData.data.vote_average} />
-              <div
-                //as a card class with tailwind
-                className="card-body w-1/3 rounded-xl bg-black bg-opacity-90 shadow-xl shadow-orange-500"
-              >
+              <div className="card-body w-1/3 rounded-xl bg-black bg-opacity-90 shadow-xl shadow-orange-500">
                 <p className="flex-wrap text-justify text-base text-white opacity-100 transition-opacity duration-300 hover:opacity-90 ">
-                  {movieData.data.overview}
+                  {movieData.data.overview || "Este filme não possui sinopse"}
                 </p>
               </div>
             </>
           </div>
+
+          <button
+            onClick={saveMovie}
+            className="absolute bottom-0 right-0 m-2 rounded-xl bg-orange-500 p-2 text-white"
+          >
+            convertMovieApiToEntity
+          </button>
         </div>
       </div>
     );
@@ -69,4 +84,24 @@ export default function MoviePage() {
       </div>
     </div>
   );
+}
+
+// getServerSideProps
+export async function getServerSideProps<getServerSideProps>(context) {
+  // get user session
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user.id,
+    },
+  };
 }

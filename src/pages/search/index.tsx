@@ -5,12 +5,9 @@ import { useState } from "react";
 import { Movie } from "server/api/routers/tmdb";
 import ErrorHandler from "error-handler";
 import { MoviesBoxArts } from "components/movieBoxArts.component";
-import { getSession } from "next-auth/react";
 
-const Home: NextPage = (data) => {
-  const playingNow = api.tmdb.getLikedMovies.useQuery({
-    userId: data?.user?.id,
-  });
+const Home: NextPage = () => {
+  const playingNow = api.tmdb.now_playing.useQuery();
   const [text, setText] = useState("pokemon");
   return (
     <>
@@ -46,23 +43,25 @@ const Home: NextPage = (data) => {
   );
 };
 
-export async function getServerSideProps<getServerSideProps>(context) {
-  // get user session
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      user: session.user,
-    },
-  };
-}
-
 export default Home;
+
+// create a form to use a mutation
+// const CreateTodoForm: React.FC = () => {
+
+//   return (
+//     <form
+//       onSubmit={async (e) => {
+//         e.preventDefault();
+//         await mutate({ text });
+//         setText("");
+//       }}
+//     >
+//       <input
+//         value={text}
+//         onChange={(e) => setText(e.target.value)}
+//         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+//       />
+//       <button type="submit">Create</button>
+//     </form>
+//   );
+// };

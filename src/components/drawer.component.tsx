@@ -2,7 +2,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { HomeIcon } from "@heroicons/react/24/solid";
-import SearchBar from "./search";
+import SearchBar from "./search.component";
 
 type DrawerProps = {
   children: React.ReactNode;

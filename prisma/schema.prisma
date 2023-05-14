@@ -51,13 +51,14 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String       @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?      @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+    LikedMovie    LikedMovie[]
 }
 
 model VerificationToken {
@@ -74,7 +75,7 @@ model Movie {
     overview         String?      @db.Text
     originalTitle    String?
     originalLanguage String?
-    description      String?
+    description      String?      @db.Text
     releaseDate      DateTime
     poster           String?
     backdrop         String?
@@ -90,10 +91,12 @@ model Movie {
 }
 
 model LikedMovie {
-    id      String @id @default(cuid())
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId  String
     movie   Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
     movieId Int
 
-    @@unique([userId, movieId])
+    @@id([userId, movieId])
+    @@index([userId])
+    @@index([movieId])
 }

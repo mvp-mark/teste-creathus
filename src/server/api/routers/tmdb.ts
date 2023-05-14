@@ -6,6 +6,12 @@ import {
 } from "server/api/trpc";
 import axios from "axios";
 import { env } from "env.mjs";
+import {
+  findOne,
+  getAllLikedMoviesByUser,
+  getMovie,
+  likeMovie,
+} from "server/services/movies.service";
 
 export interface Movie {
   adult: boolean;
@@ -77,17 +83,23 @@ export const tmdbRouter = createTRPCRouter({
   findMovie: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${input.id}`,
-        {
-          params: {
-            api_key: env.TMDB_KEY,
-            language: "pt-BR",
-            region: "br",
-          },
-        }
-      );
-      const data = (await response.data) as Movie;
-      return data;
+      return await getMovie(+input.id);
+    }),
+
+  saveLike: protectedProcedure
+    .input(z.object({ movieId: z.number(), userId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const movie = await findOne(input.movieId);
+
+      // create a like
+      const like = await likeMovie(input.userId, movie);
+
+      return like;
+    }),
+
+  getLikedMovies: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input }) => {
+      return await getAllLikedMoviesByUser(input.userId);
     }),
 });

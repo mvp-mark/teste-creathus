@@ -38,8 +38,27 @@ export const movieRepository = {
   },
 
   async createLikedMovie(userId: string, movieId: number) {
-    return await prisma.likedMovie.create({
-      data: {
+    const movie = await prisma.movie.findUnique({
+      where: {
+        movieId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return await prisma.likedMovie.upsert({
+      where: {
+        userId_movieId: {
+          userId: userId,
+          movieId: movieId,
+        },
+      },
+      update: {
+        userId: userId,
+        movieId: movieId,
+      },
+      create: {
         userId: userId,
         movieId: movieId,
       },

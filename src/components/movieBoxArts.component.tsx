@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Movie } from "server/api/routers/tmdb";
-import { Stars } from "./stars";
+import { Stars } from "./stars.component";
 
 export function MoviesBoxArts(todo: Movie) {
   return (
@@ -15,7 +15,9 @@ export function MoviesBoxArts(todo: Movie) {
           alt={todo.title ?? todo.original_title}
         />
         <Stars rating={todo.vote_average} />
-        <span className="text-sm ">{todo.title ?? todo.original_title}</span>
+        <span className="p-2 text-center text-lg font-medium">
+          {todo.title ?? todo.original_title}
+        </span>
       </div>
     </Link>
   );

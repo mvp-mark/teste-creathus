@@ -1,15 +1,25 @@
-import { router } from "@trpc/server";
-import { env } from "env.mjs";
-import Router from "next/router";
 import { useRef, useEffect } from "react";
+import { env } from "env.mjs";
+import Router, { useRouter } from "next/router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const SearchBar = () => {
+  const router = useRouter();
   const clickPoint = useRef<HTMLDivElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const schema = z.object({
+    searchBar: z.string().min(1).max(100).nonempty(),
+  });
+  type FormData = z.infer<typeof schema>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   const handleFocus = () => {
     clickPoint.current.style.display = "none";
@@ -19,16 +29,16 @@ const SearchBar = () => {
     clickPoint.current.style.display = "block";
   };
 
-  const handleSearch = (inputRef) => {
-    console.log(inputRef.current.value);
-    return Router.push(
-      env.NEXTAUTH_URL + "/search/" + inputRef.current.value,
-      {}
-    );
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const isValid = await schema.parseAsync(data);
+    console.log({ isValid });
+
+    if (isValid) {
+      return await router.push(`/search/` + data.searchBar);
+    }
   };
 
   return (
-    // Your JSX code from step 1 and 2
     <div className="group flex items-center justify-center px-4">
       <div className="flex items-center justify-center px-4">
         <div className="relative mr-3">
@@ -49,12 +59,12 @@ const SearchBar = () => {
               ></path>
             </svg>
           </div>
-          <form onSubmit={() => handleSearch(inputRef)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               className="w-70 block rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-gray-900 focus:pl-3"
               placeholder="Search Here..."
-              ref={inputRef}
+              {...register("searchBar")}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />

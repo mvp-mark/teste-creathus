@@ -58,3 +58,37 @@ CREATE TABLE `VerificationToken` (
     UNIQUE INDEX `VerificationToken_token_key`(`token`),
     UNIQUE INDEX `VerificationToken_identifier_token_key`(`identifier`, `token`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Movie` (
+    `id` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `overview` TEXT NULL,
+    `originalTitle` VARCHAR(191) NULL,
+    `originalLanguage` VARCHAR(191) NULL,
+    `description` TEXT NULL,
+    `releaseDate` DATETIME(3) NOT NULL,
+    `poster` VARCHAR(191) NULL,
+    `backdrop` VARCHAR(191) NULL,
+    `popularity` DOUBLE NOT NULL,
+    `voteCount` INTEGER NOT NULL,
+    `voteAverage` DOUBLE NOT NULL,
+    `adult` BOOLEAN NOT NULL,
+    `video` BOOLEAN NOT NULL,
+    `movieId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `Movie_movieId_key`(`movieId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `LikedMovie` (
+    `userId` VARCHAR(191) NOT NULL,
+    `movieId` INTEGER NOT NULL,
+
+    INDEX `LikedMovie_userId_idx`(`userId`),
+    INDEX `LikedMovie_movieId_idx`(`movieId`),
+    PRIMARY KEY (`userId`, `movieId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

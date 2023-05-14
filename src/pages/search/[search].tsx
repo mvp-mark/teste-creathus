@@ -1,5 +1,4 @@
-import { MoviesBoxArts } from "components/movieBoxArts";
-import { Stars } from "components/stars";
+import { MoviesBoxArts } from "components/movieBoxArts.component";
 import { useRouter } from "next/router";
 import { Movie } from "server/api/routers/tmdb";
 import { api } from "utils/api";

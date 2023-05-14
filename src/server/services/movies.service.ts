@@ -1,18 +1,17 @@
 import { Movie } from "server/entities/movie.entity";
 import { movieRepository } from "server/repositories/movie.repository";
 import { Movie as MovieTmdb } from "server/api/routers/tmdb";
+import axios from "axios";
+import { env } from "env.mjs";
 
-export const likeMovie = async (userId: string, movie: Movie) => {
-  const movieData = await movieRepository.findOne(movie.movieId);
+export const likeMovie = async (userId: string, movie: MovieTmdb) => {
+  const movieExists = await movieRepository.findOne(movie.id);
 
-  if (!movieData) {
-    await movieRepository.createMovie(movie);
+  if (!movieExists) {
+    await movieRepository.createMovie(convertMovieApiToEntity(movie));
   }
 
-  const likedMovie = await movieRepository.createLikedMovie(
-    userId,
-    movie.movieId
-  );
+  const likedMovie = await movieRepository.createLikedMovie(userId, movie.id);
 
   return likedMovie;
 };
@@ -30,6 +29,46 @@ export const unlikeMovie = async (userId: string, movieId: number) => {
 };
 
 export const getLikedMovies = async (userId: string): Promise<MovieTmdb[]> => {
+  const movies = await movieRepository.findMany(userId);
+
+  if (movies.length === 0) {
+    throw new Error("Movies not found");
+  }
+
+  return mapMovies(movies);
+};
+
+export const getMovie = async (movieId: number): Promise<MovieTmdb> => {
+  const movie = await findOne(movieId);
+
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${movieId}`,
+    {
+      params: {
+        api_key: env.TMDB_KEY,
+        language: "pt-BR",
+        region: "br",
+      },
+    }
+  );
+  const data = (await response.data) as MovieTmdb;
+
+  if (!movie) await movieRepository.createMovie(convertMovieApiToEntity(data));
+
+  return data;
+};
+
+export const findOne = async (movieId: number): Promise<MovieTmdb> => {
+  let movie = await movieRepository.findOne(movieId);
+
+  if (!movie) return;
+
+  return mapMovie(movie);
+};
+
+export const getAllLikedMoviesByUser = async (
+  userId: string
+): Promise<MovieTmdb[]> => {
   const movies = await movieRepository.findMany(userId);
 
   if (movies.length === 0) {
