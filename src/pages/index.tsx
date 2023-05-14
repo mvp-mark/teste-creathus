@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { GetServerSideProps, type NextPage } from "next";
 import Head from "next/head";
 import { api } from "utils/api";
 import { useState } from "react";
@@ -7,9 +7,14 @@ import ErrorHandler from "error-handler";
 import { MoviesBoxArts } from "components/movieBoxArts.component";
 import { getSession } from "next-auth/react";
 
-const Home: NextPage = (data) => {
+const Home: NextPage = (data: {
+  user: {
+    id: string;
+  };
+}) => {
+  const userId = data?.user?.id;
   const playingNow = api.tmdb.getLikedMovies.useQuery({
-    userId: data?.user?.id,
+    userId,
   });
   const [text, setText] = useState("pokemon");
   return (
@@ -46,7 +51,9 @@ const Home: NextPage = (data) => {
   );
 };
 
-export async function getServerSideProps<getServerSideProps>(context) {
+export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   // get user session
   const session = await getSession(context);
   if (!session) {
@@ -63,6 +70,4 @@ export async function getServerSideProps<getServerSideProps>(context) {
       user: session.user,
     },
   };
-}
-
-export default Home;
+};

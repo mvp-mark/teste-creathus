@@ -17,7 +17,7 @@ export const likeMovie = async (userId: string, movie: MovieTmdb) => {
 };
 
 export const unlikeMovie = async (userId: string, movieId: number) => {
-  const movie = await movieRepository.findMany(userId, movieId);
+  const movie = await movieRepository.findOne(movieId);
 
   if (!movie) {
     throw new Error("Movie not found");
@@ -59,7 +59,7 @@ export const getMovie = async (movieId: number): Promise<MovieTmdb> => {
 };
 
 export const findOne = async (movieId: number): Promise<MovieTmdb> => {
-  let movie = await movieRepository.findOne(movieId);
+  const movie = await movieRepository.findOne(movieId);
 
   if (!movie) return;
 

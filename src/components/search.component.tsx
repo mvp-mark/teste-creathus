@@ -1,11 +1,11 @@
+import { type NextPage } from "next";
 import { useRef, useEffect } from "react";
-import { env } from "env.mjs";
 import Router, { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-const SearchBar = () => {
+const SearchBar: NextPage = () => {
   const router = useRouter();
   const clickPoint = useRef<HTMLDivElement | null>(null);
 
@@ -59,7 +59,7 @@ const SearchBar = () => {
               ></path>
             </svg>
           </div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={() => handleSubmit(onSubmit)}>
             <input
               type="text"
               className="w-70 block rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-gray-900 focus:pl-3"

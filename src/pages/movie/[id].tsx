@@ -5,9 +5,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { api } from "utils/api";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { GetServerSideProps } from "next";
 
 // const { data: sessionData } = useSession();
-export default function MoviePage(user) {
+export default function MoviePage(user: { user: string }) {
   const router = useRouter();
   const { id } = router.query;
   const { mutate } = api.tmdb.saveLike.useMutation();
@@ -16,7 +17,7 @@ export default function MoviePage(user) {
     typeof id === "string" ? api.tmdb.findMovie.useQuery({ id }) : null;
 
   if (movieData?.data != null) {
-    const saveMovie = async () => {
+    const saveMovie = () => {
       try {
         mutate({
           movieId: movieData.data.id,
@@ -86,8 +87,9 @@ export default function MoviePage(user) {
   );
 }
 
-// getServerSideProps
-export async function getServerSideProps<getServerSideProps>(context) {
+// add type checking
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   // get user session
   const session = await getSession(context);
   if (!session) {
@@ -104,4 +106,4 @@ export async function getServerSideProps<getServerSideProps>(context) {
       user: session.user.id,
     },
   };
-}
+};
