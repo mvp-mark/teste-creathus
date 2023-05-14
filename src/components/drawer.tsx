@@ -1,6 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 type DrawerProps = {
   children: React.ReactNode;
@@ -13,7 +14,8 @@ export const Drawer = (props: DrawerProps) => {
     <div className="flex">
       <div className=" fixed z-50 flex h-screen w-1/12 flex-col justify-between bg-gray-800 text-white">
         {/* Sidebar content */}
-        <p className="py-8 text-center text-7xl font-extrabold">C</p>
+        <p className="py-2 text-center text-7xl font-extrabold">C</p>
+        <HomeIcon className="ml-4 mt-2 h-8 w-8 hover:cursor-pointer" />
         <div className="flex flex-col items-center">
           <div className="flex-grow" />
           <div className="flex flex-col items-center py-8">

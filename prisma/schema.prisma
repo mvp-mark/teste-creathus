@@ -67,3 +67,33 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Movie {
+    id               String       @id @default(cuid())
+    title            String
+    overview         String?      @db.Text
+    originalTitle    String?
+    originalLanguage String?
+    description      String?
+    releaseDate      DateTime
+    poster           String?
+    backdrop         String?
+    popularity       Float
+    voteCount        Int
+    voteAverage      Float
+    adult            Boolean
+    video            Boolean
+    movieId          Int          @unique
+    LikedMovie       LikedMovie[]
+    createdAt        DateTime     @default(now())
+    updatedAt        DateTime     @updatedAt
+}
+
+model LikedMovie {
+    id      String @id @default(cuid())
+    userId  String
+    movie   Movie  @relation(fields: [movieId], references: [movieId], onDelete: Cascade)
+    movieId Int
+
+    @@unique([userId, movieId])
+}
