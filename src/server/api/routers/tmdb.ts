@@ -98,8 +98,8 @@ export const tmdbRouter = createTRPCRouter({
       return like;
     }),
 
-  getLikedMovies: protectedProcedure
-    .input(z.object({ userId: z.string() }))
+  getLikedMovies: publicProcedure
+    .input(z.object({ userId: z.string().optional() }))
     .query(async ({ input }) => {
       return await getAllLikedMoviesByUser(input.userId);
     }),

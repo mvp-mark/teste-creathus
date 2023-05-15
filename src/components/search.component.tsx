@@ -31,7 +31,6 @@ const SearchBar: NextPage = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const isValid = await schema.parseAsync(data);
-    console.log({ isValid });
     const { searchBar } = data;
 
     if (isValid) {

@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { GetServerSideProps, type NextPage } from "next";
 import Head from "next/head";
 import { api } from "utils/api";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import ErrorHandler from "error-handler";
 import { MoviesBoxArts } from "components/movieBoxArts.component";
 import Loading from "components/loading.component";
 import SearchBar from "components/search.component";
+import { getSession } from "next-auth/react";
 
 const Home: NextPage = () => {
   const playingNow = api.tmdb.now_playing.useQuery();
@@ -47,3 +48,21 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+};

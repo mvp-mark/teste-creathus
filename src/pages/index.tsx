@@ -56,14 +56,10 @@ const Home: NextPage = (data: {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // get user session
   const session = await getSession(context);
   if (!session) {
     return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
+      props: {},
     };
   }
 

@@ -1,4 +1,6 @@
 import { MoviesBoxArts } from "components/movieBoxArts.component";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Movie } from "server/api/routers/tmdb";
 import { api } from "utils/api";
@@ -10,12 +12,10 @@ export default function SearchPage() {
   const movieData =
     typeof search === "string" ? api.tmdb.search.useQuery({ search }) : null;
 
-  console.log(typeof movieData);
-
   if (movieData?.data != null) {
     return (
       <>
-        <div className="items-center justify-center">
+        <div className="m-8 items-center justify-center">
           <h1 className="my-4 text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Creathus <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
@@ -46,3 +46,20 @@ export default function SearchPage() {
     </div>
   );
 }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+};

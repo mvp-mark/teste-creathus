@@ -103,7 +103,6 @@ export default function MoviePage(user: { user: string }) {
 // add type checking
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // get user session
   const session = await getSession(context);
   if (!session) {
     return {
