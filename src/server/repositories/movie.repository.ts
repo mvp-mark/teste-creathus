@@ -83,4 +83,16 @@ export const movieRepository = {
       },
     });
   },
+
+  async findManyUsers(movieId: number) {
+    return await prisma.user.findMany({
+      where: {
+        LikedMovie: {
+          some: {
+            movieId: movieId,
+          },
+        },
+      },
+    });
+  },
 };

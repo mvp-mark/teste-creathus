@@ -32,9 +32,10 @@ const SearchBar: NextPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const isValid = await schema.parseAsync(data);
     console.log({ isValid });
+    const { searchBar } = data;
 
     if (isValid) {
-      return await router.push(`/search/` + data.searchBar);
+      return await router.push(`/search/${searchBar}`);
     }
   };
 
@@ -59,7 +60,7 @@ const SearchBar: NextPage = () => {
               ></path>
             </svg>
           </div>
-          <form onSubmit={() => handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               className="w-70 block rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-gray-900 focus:pl-3"

@@ -3,6 +3,7 @@ import { movieRepository } from "server/repositories/movie.repository";
 import { Movie as MovieTmdb } from "server/api/routers/tmdb";
 import axios from "axios";
 import { env } from "env.mjs";
+import { User } from "@prisma/client";
 
 export const likeMovie = async (userId: string, movie: MovieTmdb) => {
   const movieExists = await movieRepository.findOne(movie.id);
@@ -14,6 +15,16 @@ export const likeMovie = async (userId: string, movie: MovieTmdb) => {
   const likedMovie = await movieRepository.createLikedMovie(userId, movie.id);
 
   return likedMovie;
+};
+
+export const usersLikedMovie = async (movieId: number): Promise<User[]> => {
+  const users = await movieRepository.findManyUsers(movieId);
+
+  if (users.length === 0) {
+    throw new Error("Users not found");
+  }
+
+  return users;
 };
 
 export const unlikeMovie = async (userId: string, movieId: number) => {

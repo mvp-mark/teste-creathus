@@ -11,6 +11,7 @@ import {
   getAllLikedMoviesByUser,
   getMovie,
   likeMovie,
+  usersLikedMovie,
 } from "server/services/movies.service";
 
 export interface Movie {
@@ -101,5 +102,11 @@ export const tmdbRouter = createTRPCRouter({
     .input(z.object({ userId: z.string() }))
     .query(async ({ input }) => {
       return await getAllLikedMoviesByUser(input.userId);
+    }),
+
+  getUsersWhoLiked: protectedProcedure
+    .input(z.object({ movieId: z.number() }))
+    .query(async ({ input }) => {
+      return await usersLikedMovie(input.movieId);
     }),
 });
