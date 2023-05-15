@@ -13,7 +13,7 @@ const AvatarCarousel = (props: Props) => {
     <Carousel showThumbs={false} autoPlay infiniteLoop>
       {props.users.map((user) => (
         <div key={user.id}>
-          <Image src={user.image} width={25} height={25} alt={user.name} />
+          <Image src={user.image} width={128} height={128} alt={user.name} />
           <p className="legend text-sm">{user.name}</p>
         </div>
       ))}
