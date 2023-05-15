@@ -9,9 +9,8 @@ import Loading from "components/loading.component";
 import SearchBar from "components/search.component";
 import { getSession } from "next-auth/react";
 
-const Home: NextPage = () => {
+const LastMovies: NextPage = () => {
   const playingNow = api.tmdb.now_playing.useQuery();
-  const [text, setText] = useState("pokemon");
   return (
     <>
       <div className="m-8">
@@ -26,11 +25,8 @@ const Home: NextPage = () => {
             Creathus <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>{" "}
           <SearchBar />
-          <h2
-            // make a bigger text with orange color
-            className="text-3xl font-extrabold tracking-tight text-orange-500  sm:text-[2rem]"
-          >
-            Ultimos lancamentos no cinema
+          <h2 className="text-3xl font-extrabold tracking-tight text-orange-500  sm:text-[2rem]">
+            Últimos lancamentos no cinema
           </h2>
           <div className="mt-4 grid grid-cols-7 gap-4">
             {playingNow.data ? (
@@ -47,7 +43,7 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default LastMovies;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

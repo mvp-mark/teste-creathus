@@ -20,11 +20,8 @@ export default function SearchPage() {
             Creathus <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
 
-          <h2
-            // make a bigger text with orange color
-            className="text-3xl font-extrabold tracking-tight text-orange-500 text-white sm:text-[2rem]"
-          >
-            Ultimos lancamentos no cinema
+          <h2 className="text-3xl font-extrabold tracking-tight text-orange-500 text-white sm:text-[2rem]">
+            Últimos lancamentos no cinema
           </h2>
 
           <div className="mt-4 grid grid-cols-7 gap-4">

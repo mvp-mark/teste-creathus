@@ -14,6 +14,10 @@ import {
   usersLikedMovie,
 } from "server/services/movies.service";
 
+import multer from "multer";
+
+const upload = multer({ dest: "uploads/" });
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -92,13 +96,12 @@ export const tmdbRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const movie = await findOne(input.movieId);
 
-      // create a like
       const like = await likeMovie(input.userId, movie);
 
       return like;
     }),
 
-  getLikedMovies: publicProcedure
+  getLikedMovies: protectedProcedure
     .input(z.object({ userId: z.string().optional() }))
     .query(async ({ input }) => {
       return await getAllLikedMoviesByUser(input.userId);

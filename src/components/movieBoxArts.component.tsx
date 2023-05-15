@@ -8,6 +8,7 @@ export function MoviesBoxArts(todo: Movie) {
     <Link href={`/movie/${todo.id}`} className="hover:cursor-pointer">
       <div key={todo.id} className="flex flex-col items-center gap-4">
         <Image
+          loading="eager"
           src={"https://image.tmdb.org/t/p/w185/" + todo.poster_path}
           width={185}
           height={278}

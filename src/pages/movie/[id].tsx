@@ -9,7 +9,6 @@ import { GetServerSideProps } from "next";
 import Loading from "components/loading.component";
 import AvatarCarousel from "components/carousel.component";
 
-// const { data: sessionData } = useSession();
 export default function MoviePage(user: { user: string }) {
   const router = useRouter();
   const { id } = router.query;
@@ -99,8 +98,6 @@ export default function MoviePage(user: { user: string }) {
 
   return <Loading />;
 }
-
-// add type checking
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

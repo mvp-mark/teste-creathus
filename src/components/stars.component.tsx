@@ -3,7 +3,6 @@ interface StarsProps {
 }
 
 export const Stars = (props: StarsProps) => {
-  // return a div with 5 stars icons and a text with the average of the movie
   const ratings = props.rating;
   return (
     <div className="mt-4 flex flex-row">
@@ -17,7 +16,6 @@ export const Stars = (props: StarsProps) => {
         >
           <path
             fill={ratings / 2 > 1 ? "currentColor" : "none"}
-            // stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
@@ -33,7 +31,6 @@ export const Stars = (props: StarsProps) => {
         >
           <path
             fill={ratings / 2 > 2 ? "currentColor" : "none"}
-            // stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
@@ -49,7 +46,6 @@ export const Stars = (props: StarsProps) => {
         >
           <path
             fill={ratings / 2 > 3 ? "currentColor" : "none"}
-            // stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
@@ -65,7 +61,6 @@ export const Stars = (props: StarsProps) => {
         >
           <path
             fill={ratings / 2 > 4 ? "currentColor" : "none"}
-            // stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
@@ -81,7 +76,6 @@ export const Stars = (props: StarsProps) => {
         >
           <path
             fill={ratings / 2 > 5 ? "currentColor" : "none"}
-            // stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}

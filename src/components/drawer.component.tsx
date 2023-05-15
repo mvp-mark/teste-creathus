@@ -32,6 +32,7 @@ export const Drawer = (props: DrawerProps) => {
           {sessionData && (
             <div className="flex flex-col items-center py-8">
               <Image
+                loading="eager"
                 src={sessionData?.user?.image || ""}
                 alt="Avatar image"
                 width={50}
