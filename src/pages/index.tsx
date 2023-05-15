@@ -59,7 +59,7 @@ const Home: NextPage = (data: {
             </h2>
 
             <div className="mt-4 grid grid-cols-7 gap-4">
-              {playingNow.data !== null ? (
+              {playingNow.data ? (
                 <>
                   {playingNow?.data?.map((todo: Movie) => MoviesBoxArts(todo))}
                 </>
