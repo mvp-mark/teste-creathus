@@ -2,8 +2,7 @@
 
 Este projeto foi criado utilizando a Stack T3, que é composta pelas seguintes tecnologias e padrões:
 
-Next.js
-: Next.js é um framework React de código aberto que permite a criação de aplicativos web modernos do lado do cliente e do lado do servidor. Ele fornece recursos como renderização do lado do servidor, geração estática e pré-renderização, roteamento automático, carregamento de módulos sob demanda e suporte a API.
+Next.js : Next.js é um framework React de código aberto que permite a criação de aplicativos web modernos do lado do cliente e do lado do servidor. Ele fornece recursos como renderização do lado do servidor, geração estática e pré-renderização, roteamento automático, carregamento de módulos sob demanda e suporte a API.
 
 tRPC
 : tRPC é uma biblioteca para criação de APIs no Next.js. Ela oferece uma maneira fácil e declarativa de definir e implementar suas rotas e controladores de API. Com o tRPC, você pode escrever código de forma rápida e eficiente, garantindo um bom desempenho e facilidade de manutenção.
