@@ -2,25 +2,25 @@
 
 Este projeto foi criado utilizando a Stack T3, que é composta pelas seguintes tecnologias e padrões:
 
-Next.js : Next.js é um framework React de código aberto que permite a criação de aplicativos web modernos do lado do cliente e do lado do servidor. Ele fornece recursos como renderização do lado do servidor, geração estática e pré-renderização, roteamento automático, carregamento de módulos sob demanda e suporte a API.
+- Next.js : Next.js é um framework React de código aberto que permite a criação de aplicativos web modernos do lado do cliente e do lado do servidor. Ele fornece recursos como renderização do lado do servidor, geração estática e pré-renderização, roteamento automático, carregamento de módulos sob demanda e suporte a API.
 
-tRPC
-: tRPC é uma biblioteca para criação de APIs no Next.js. Ela oferece uma maneira fácil e declarativa de definir e implementar suas rotas e controladores de API. Com o tRPC, você pode escrever código de forma rápida e eficiente, garantindo um bom desempenho e facilidade de manutenção.
+- tRPC
+  : tRPC é uma biblioteca para criação de APIs no Next.js. Ela oferece uma maneira fácil e declarativa de definir e implementar suas rotas e controladores de API. Com o tRPC, você pode escrever código de forma rápida e eficiente, garantindo um bom desempenho e facilidade de manutenção.
 
-Prisma
-: Prisma é um ORM (Object-Relational Mapping) de banco de dados que simplifica a interação com o banco de dados em aplicativos. Ele fornece uma camada de abstração sobre o banco de dados, permitindo que você defina e acesse os modelos de dados usando uma linguagem declarativa. O Prisma oferece suporte a vários bancos de dados, como PostgreSQL, MySQL e SQLite.
+- Prisma
+  : Prisma é um ORM (Object-Relational Mapping) de banco de dados que simplifica a interação com o banco de dados em aplicativos. Ele fornece uma camada de abstração sobre o banco de dados, permitindo que você defina e acesse os modelos de dados usando uma linguagem declarativa. O Prisma oferece suporte a vários bancos de dados, como PostgreSQL, MySQL e SQLite.
 
-NextAuth
-: NextAuth é uma biblioteca de autenticação para aplicativos Next.js. Ela simplifica a implementação de recursos de autenticação, como login com provedores de terceiros (Google, Facebook, GitHub, etc.) e autenticação local. O NextAuth fornece uma API fácil de usar para gerenciar o fluxo de autenticação em seu aplicativo.
+- NextAuth
+  : NextAuth é uma biblioteca de autenticação para aplicativos Next.js. Ela simplifica a implementação de recursos de autenticação, como login com provedores de terceiros (Google, Facebook, GitHub, etc.) e autenticação local. O NextAuth fornece uma API fácil de usar para gerenciar o fluxo de autenticação em seu aplicativo.
 
-Tailwind CSS
-: Tailwind CSS é uma estrutura de design CSS altamente personalizável e utilitária. Ele fornece uma ampla variedade de classes utilitárias pré-construídas, permitindo que você construa rapidamente interfaces responsivas e estilizadas. Com o Tailwind CSS, você pode evitar escrever CSS personalizado e se concentrar mais na estrutura e no layout do seu aplicativo.
+- Tailwind CSS
+  : Tailwind CSS é uma estrutura de design CSS altamente personalizável e utilitária. Ele fornece uma ampla variedade de classes utilitárias pré-construídas, permitindo que você construa rapidamente interfaces responsivas e estilizadas. Com o Tailwind CSS, você pode evitar escrever CSS personalizado e se concentrar mais na estrutura e no layout do seu aplicativo.
 
-TypeScript
-: TypeScript é uma linguagem de programação de código aberto desenvolvida pela Microsoft que estende o JavaScript adicionando tipos estáticos opcionais. Ele melhora a produtividade e a segurança do código, permitindo a detecção de erros em tempo de compilação. O TypeScript é amplamente utilizado no desenvolvimento de aplicativos web e fornece uma melhor experiência de desenvolvimento em comparação com o JavaScript puro.
+- TypeScript
+  : TypeScript é uma linguagem de programação de código aberto desenvolvida pela Microsoft que estende o JavaScript adicionando tipos estáticos opcionais. Ele melhora a produtividade e a segurança do código, permitindo a detecção de erros em tempo de compilação. O TypeScript é amplamente utilizado no desenvolvimento de aplicativos web e fornece uma melhor experiência de desenvolvimento em comparação com o JavaScript puro.
 
-Repository pattern
-: O padrão Repository é uma abordagem comum para organizar o código de acesso a dados em aplicativos. Ele separa a lógica de acesso a dados da lógica de negócios, fornecendo uma camada de abstração que facilita a modificação e a extensão do código de acesso a dados. Usar o padrão Repository pode melhorar a modularidade, testabilidade e manutenção do seu projeto.
+- Repository pattern
+  : O padrão Repository é uma abordagem comum para organizar o código de acesso a dados em aplicativos. Ele separa a lógica de acesso a dados da lógica de negócios, fornecendo uma camada de abstração que facilita a modificação e a extensão do código de acesso a dados. Usar o padrão Repository pode melhorar a modularidade, testabilidade e manutenção do seu projeto.
 
 ---
 
