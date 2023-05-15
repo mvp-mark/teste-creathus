@@ -8,7 +8,7 @@ import { getSession } from "next-auth/react";
 import Loading from "components/loading.component";
 import LastMovies from "./search";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Home: NextPage = (data: {
   user: {
@@ -17,24 +17,30 @@ const Home: NextPage = (data: {
 }) => {
   const router = useRouter();
 
-  if (data?.user) {
-    const userId = data?.user?.id;
-
-    const playingNow = api.tmdb.getLikedMovies.useQuery({
-      userId,
+  const [pushToSearchBoolean, setPushToSearchBoolean] = useState(false);
+  const pushToSearch = () => {
+    router.push("/search").catch((err) => {
+      console.error(err);
     });
+  };
 
-    const pushToSearch = () => {
-      router.push("/search");
-    };
-    let push = false;
+  useEffect(() => {
+    if (pushToSearchBoolean === true) {
+      pushToSearch();
+    }
+  }, [pushToSearchBoolean]);
 
-    useEffect(() => {
-      if (push) {
-        pushToSearch();
-      }
-    }, [push]);
+  const userId = data?.user?.id;
 
+  const playingNow = api.tmdb.getLikedMovies.useQuery({
+    userId,
+  });
+  useEffect(() => {
+    if (playingNow?.error?.data) {
+      setPushToSearchBoolean(true);
+    }
+  }, [playingNow?.error?.data]);
+  if (data?.user) {
     return (
       <>
         <div className="m-8">
@@ -53,13 +59,12 @@ const Home: NextPage = (data: {
             </h2>
 
             <div className="mt-4 grid grid-cols-7 gap-4">
-              {playingNow.data ? (
-                <>{playingNow.data.map((todo: Movie) => MoviesBoxArts(todo))}</>
-              ) : playingNow?.error?.data == null ? (
-                <Loading />
+              {playingNow.data !== null ? (
+                <>
+                  {playingNow?.data?.map((todo: Movie) => MoviesBoxArts(todo))}
+                </>
               ) : (
-                ((push = true),
-                (<ErrorHandler error={playingNow.error?.message} />))
+                <Loading />
               )}
             </div>
           </div>
@@ -67,6 +72,7 @@ const Home: NextPage = (data: {
       </>
     );
   }
+  // (<ErrorHandler error={playingNow.error?.message} />))
 
   if (data.user === null) {
     return <LastMovies />;
