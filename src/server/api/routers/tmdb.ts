@@ -14,10 +14,6 @@ import {
   usersLikedMovie,
 } from "server/services/movies.service";
 
-import multer from "multer";
-
-const upload = multer({ dest: "uploads/" });
-
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
