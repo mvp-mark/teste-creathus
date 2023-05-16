@@ -32,7 +32,8 @@ Para instalar o projeto, siga as etapas abaixo:
 2. Clone este repositório em sua máquina local.
 3. Acesse o diretório do projeto pelo terminal.
 4. Execute o comando `yarn install` ou `npm install` para instalar as dependências.
-5. Após a conclusão da instalação, você pode iniciar o projeto executando yarn start ou npm start.
+5. Execute o comando `npx prisma migrate dev --name init` para gerar as migrations no projeto.
+6. Após a conclusão da instalação, você pode iniciar o projeto executando yarn dev ou npm run dev.
 
 Aguarde até que o projeto seja compilado e iniciado com sucesso.
 Abra um navegador da web e acesse http://localhost:3000 para visualizar o projeto em execução.
