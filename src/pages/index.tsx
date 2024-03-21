@@ -89,11 +89,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       //   destination: "/login",
       //   permanent: false,
       // },
-      props: {
-        user: {
-          id: '1'
-        },
-      },
+      // props: {
+      //   user: {
+      //     id: '1'
+      //   },
+      // },
     };
   }
 
