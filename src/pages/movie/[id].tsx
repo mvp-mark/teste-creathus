@@ -99,20 +99,20 @@ export default function MoviePage(user: { user: string }) {
   return <Loading />;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      user: session.user.id,
-    },
-  };
-};
+//   return {
+//     props: {
+//       user: session.user.id,
+//     },
+//   };
+// };
